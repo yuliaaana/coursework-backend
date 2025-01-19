@@ -1,0 +1,11 @@
+{
+   "terminal.integrated.profiles.windows": {
+        "custom-bash": {
+            "path": "C:\\PROGRA~1\\Git\\bin\\bash.exe",
+            "args": [
+                "--cd=${workspaceFolder}"
+            ]
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "custom-bash",
+}

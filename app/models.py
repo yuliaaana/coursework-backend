@@ -40,3 +40,33 @@ class Deck(db.Model):
             "created_at": self.created_at
         }
 
+class Flashcard(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    deck_id = db.Column(db.Integer, db.ForeignKey('deck.id'), nullable=False)
+    front_title = db.Column(db.String(255), nullable=False)
+    back_title = db.Column(db.String(255), nullable=False)
+    back_description = db.Column(db.Text, nullable=True)  # Using Text for longer content
+    image_url = db.Column(db.String(512), nullable=True)
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    last_reviewed = db.Column(db.DateTime, nullable=True)
+    review_count = db.Column(db.Integer, default=0)
+    confidence_level = db.Column(db.Integer, default=0)  # 0-5 scale for spaced repetition
+    
+    # Relationship with Deck
+    deck = db.relationship('Deck', backref=db.backref('flashcards', lazy=True))
+    
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "deck_id": self.deck_id,
+            "front_title": self.front_title,
+            "back_title": self.back_title,
+            "back_description": self.back_description,
+            "image_url": self.image_url,
+            "created_at": self.created_at,
+            "last_reviewed": self.last_reviewed,
+            "review_count": self.review_count,
+            "confidence_level": self.confidence_level
+        }
+    
+    

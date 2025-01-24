@@ -10,7 +10,7 @@ def get_folders_with_decks(user_id):
         return jsonify({"message": "User not found"}), 404
 
     folders = Folder.query.filter_by(user_id=user_id).all()
-
+    print(folders)
     folder_list = []
     for folder in folders:
         decks_data = [{"id": deck.id, "name": deck.name} for deck in folder.decks]

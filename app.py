@@ -7,11 +7,11 @@ from flask_cors import CORS
 app = Flask(__name__)
 app.config.from_object(Config)
 CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
 
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
-
-class User(db.Model):
+'''class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -103,4 +103,4 @@ def get_user_data(user_id):
     }), 200
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True)'''

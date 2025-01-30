@@ -16,13 +16,16 @@ def create_app():
     bcrypt.init_app(app)
 
     with app.app_context():
-        from app.routes import auth, user,folders,createfolder,createdeck,deck
+        from app.routes import auth, user,folders,createfolder,createdeck,deck,updateflashcard
         app.register_blueprint(auth.bp)
         app.register_blueprint(user.bp)
         app.register_blueprint(folders.bp)
         app.register_blueprint(createfolder.bp)
         app.register_blueprint(createdeck.bp)
         app.register_blueprint(deck.bp)
+        app.register_blueprint(updateflashcard.bp)
+
+
 
         db.create_all()
 

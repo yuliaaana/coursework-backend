@@ -39,7 +39,6 @@ class Deck(db.Model):
             "terms": self.terms,      # Додано нове поле
             "created_at": self.created_at
         }
-
 class Flashcard(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     deck_id = db.Column(db.Integer, db.ForeignKey('deck.id'), nullable=False)
@@ -51,6 +50,7 @@ class Flashcard(db.Model):
     last_reviewed = db.Column(db.DateTime, nullable=True)
     review_count = db.Column(db.Integer, default=0)
     confidence_level = db.Column(db.Integer, default=0)  # 0-5 scale for spaced repetition
+    next_review = db.Column(db.DateTime, nullable=True)  # New column for next review date
     
     # Relationship with Deck
     deck = db.relationship('Deck', backref=db.backref('flashcards', lazy=True))
@@ -66,7 +66,7 @@ class Flashcard(db.Model):
             "created_at": self.created_at,
             "last_reviewed": self.last_reviewed,
             "review_count": self.review_count,
-            "confidence_level": self.confidence_level
+            "confidence_level": self.confidence_level,
+            "next_review": self.next_review  # Include new column in the dictionary
         }
-    
     

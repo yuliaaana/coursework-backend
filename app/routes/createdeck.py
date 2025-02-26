@@ -8,7 +8,6 @@ bp = Blueprint('create_deck', __name__, url_prefix='/api')
 def create_deck():
     data = request.json
 
-    # Валідація вхідних даних
     user_id = data.get('user_id')
     deck_name = data.get('name')
     flashcards = data.get('flashcards')
@@ -19,17 +18,15 @@ def create_deck():
     if not flashcards or not any(card.get('front') and card.get('back') for card in flashcards):
         return jsonify({"message": "At least one valid flashcard is required"}), 400
 
-    # Створення нової колоди
     new_deck = Deck(
         user_id=user_id,
         name=deck_name,
-        creator="Unknown Creator",  # Можете змінити на реальні дані
+        creator="Unknown Creator", ###############################
         terms=len(flashcards)
     )
     db.session.add(new_deck)
     db.session.commit()
 
-    # Додавання флешкарток до колоди
     for card in flashcards:
         if card.get('front') and card.get('back'):
             new_flashcard = Flashcard(
@@ -37,7 +34,7 @@ def create_deck():
                 front_title=card['front'],
                 back_title=card['back'],
                 back_description=card.get('description', ""),
-                image_url=card.get('image_url', None)  # Якщо є підтримка зображень
+                image_url=card.get('image_url', None)  
             )
             db.session.add(new_flashcard)
 

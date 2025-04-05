@@ -17,7 +17,7 @@ def get_folders_with_decks(user_id):
         folder_list.append({
             "id": folder.id,
             "name": folder.name,
-            "created_at": folder.created_at.isoformat(),  # Серіалізація datetime
+            "created_at": folder.created_at.isoformat(),  
             "decks": decks_data
         })
 

@@ -17,8 +17,8 @@ def get_user_data(user_id):
         {
             "id": deck.id,
             "name": deck.name,
-            "creator": deck.creator,  # Додано
-            "terms": deck.terms,      # Додано
+            "creator": deck.creator,  
+            "terms": deck.terms,     
             "folder_id": deck.folder_id,
             "created_at": deck.created_at
         }

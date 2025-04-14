@@ -20,7 +20,7 @@ class Folder(db.Model):
             "created_at": self.created_at
         }
 
-class Deck(db.Model):
+'''class Deck(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     folder_id = db.Column(db.Integer, db.ForeignKey('folder.id'), nullable=True)
@@ -38,7 +38,31 @@ class Deck(db.Model):
             "creator": self.creator,  
             "terms": self.terms,      
             "created_at": self.created_at
+        }'''
+
+class Deck(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    folder_id = db.Column(db.Integer, db.ForeignKey('folder.id'), nullable=True)
+    name = db.Column(db.String(255), nullable=False)
+    creator = db.Column(db.String(255), nullable=False)  
+    terms = db.Column(db.Integer, default=0)  
+    is_public = db.Column(db.Boolean, default=False)  # <-- додано
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+    user = db.relationship('User', backref=db.backref('decks', lazy=True))
+    folder = db.relationship('Folder', backref=db.backref('decks', lazy=True))
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "creator": self.creator,  
+            "terms": self.terms,
+            "is_public": self.is_public,  # <-- додано
+            "created_at": self.created_at
         }
+
+
 class Flashcard(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     deck_id = db.Column(db.Integer, db.ForeignKey('deck.id'), nullable=False)

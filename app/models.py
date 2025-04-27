@@ -5,6 +5,7 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
+    avatar = db.Column(db.LargeBinary, nullable=True)
 
 class Folder(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -18,6 +19,7 @@ class Folder(db.Model):
             "id": self.id,
             "name": self.name,
             "created_at": self.created_at
+            
         }
 
 '''class Deck(db.Model):
@@ -56,7 +58,7 @@ class Deck(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "creator": self.creator,  
+            "creator": self.user.username,  
             "terms": self.terms,
             "is_public": self.is_public,  # <-- додано
             "created_at": self.created_at

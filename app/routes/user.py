@@ -24,7 +24,8 @@ def get_user_data(user_id):
             "creator": deck.user.username, 
             "terms": deck.terms,     
             "folder_id": deck.folder_id,
-            "created_at": deck.created_at
+            "created_at": deck.created_at,
+            "is_public": deck.is_public
         }
         for deck in decks
     ]

@@ -58,7 +58,8 @@ class Deck(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "creator": self.user.username,  
+            "creator": self.user.username,
+            "creator_id": self.user.id,    
             "terms": self.terms,
             "is_public": self.is_public,  # <-- додано
             "created_at": self.created_at

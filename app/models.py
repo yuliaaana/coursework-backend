@@ -62,7 +62,8 @@ class Deck(db.Model):
             "creator_id": self.user.id,    
             "terms": self.terms,
             "is_public": self.is_public,  # <-- додано
-            "created_at": self.created_at
+            "created_at": self.created_at.strftime("%d.%m.%Y")
+ # Додано форматування дати
         }
 
 

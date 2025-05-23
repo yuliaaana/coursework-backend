@@ -7,12 +7,10 @@ import os
 
 bp = Blueprint('profile', __name__, url_prefix='/api')
 
-# Ендпойнт отримання даних користувача
 @bp.route('/user-data/<int:user_id>', methods=['GET'])
 def get_user_data(user_id):
     user = User.query.get(user_id)
     if user:
-        # Encode avatar to base64 if it exists
         avatar_base64 = None
         if user.avatar:
             avatar_base64 = base64.b64encode(user.avatar).decode('utf-8')
@@ -22,13 +20,12 @@ def get_user_data(user_id):
                 "id": user.id,
                 "username": user.username,
                 "email": user.email,
-                "avatar": avatar_base64  # Sending avatar as base64 encoded string
+                "avatar": avatar_base64  
             }
         })
     else:
         return jsonify({"error": "User not found"}), 404
 
-# Ендпойнт оновлення даних користувача
 @bp.route('/update-user/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
     user = User.query.get(user_id)
@@ -44,7 +41,6 @@ def update_user(user_id):
     if email:
         user.email = email
 
-    # Encode avatar to base64 if it exists
     avatar_base64 = None
     if user.avatar:
         avatar_base64 = base64.b64encode(user.avatar).decode('utf-8')
@@ -56,11 +52,10 @@ def update_user(user_id):
             "id": user.id,
             "username": user.username,
             "email": user.email,
-            "avatar": avatar_base64  # Sending avatar as base64 encoded string
+            "avatar": avatar_base64
         }
     })
 
-# Ендпойнт зміни пароля
 @bp.route('/change-password/<int:user_id>', methods=['PUT'])
 def change_password(user_id):
     user = User.query.get(user_id)
@@ -78,7 +73,6 @@ def change_password(user_id):
 
     return jsonify({"message": "Password updated successfully"})
 
-# Ендпойнт завантаження аватара
 @bp.route('/upload-avatar/<int:user_id>', methods=['POST'])
 def upload_avatar(user_id):
     user = User.query.get(user_id)
@@ -94,19 +88,17 @@ def upload_avatar(user_id):
     if file.filename == '':
         return jsonify({"error": "No selected file"}), 400
 
-    # Read the file as binary data
     try:
         avatar_data = file.read()
-        # Save the binary data in the database
+
         user.avatar = avatar_data
         db.session.commit()
 
-        # After successfully uploading, we return the new avatar in Base64
         avatar_base64 = base64.b64encode(avatar_data).decode('utf-8')
 
         return jsonify({
             "message": "Avatar uploaded successfully",
-            "avatar": avatar_base64  # Sending the uploaded avatar as base64 string
+            "avatar": avatar_base64 
         })
     except Exception as e:
         print("Error processing file:", str(e))

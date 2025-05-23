@@ -22,26 +22,6 @@ class Folder(db.Model):
             
         }
 
-'''class Deck(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    folder_id = db.Column(db.Integer, db.ForeignKey('folder.id'), nullable=True)
-    name = db.Column(db.String(255), nullable=False)
-    creator = db.Column(db.String(255), nullable=False)  
-    terms = db.Column(db.Integer, default=0)  
-    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
-    user = db.relationship('User', backref=db.backref('decks', lazy=True))
-    folder = db.relationship('Folder', backref=db.backref('decks', lazy=True))
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "creator": self.creator,  
-            "terms": self.terms,      
-            "created_at": self.created_at
-        }'''
-
 class Deck(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -61,9 +41,8 @@ class Deck(db.Model):
             "creator": self.user.username,
             "creator_id": self.user.id,    
             "terms": self.terms,
-            "is_public": self.is_public,  # <-- додано
+            "is_public": self.is_public,
             "created_at": self.created_at.strftime("%d.%m.%Y")
- # Додано форматування дати
         }
 
 

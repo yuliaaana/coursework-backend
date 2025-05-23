@@ -20,8 +20,8 @@ def login():
             {
                 "id": deck.id,
                 "name": deck.name,
-                "creator": deck.creator,  # Додано
-                "terms": deck.terms,      # Додано
+                "creator": deck.creator,  
+                "terms": deck.terms,     
                 "folder_id": deck.folder_id,
                 "created_at": deck.created_at
             }
@@ -37,32 +37,6 @@ def login():
         }), 200
     else:
         return jsonify({"message": "Invalid username or password"}), 401
-
-
-'''@bp.route('/register', methods=['POST'])
-def register():
-    data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
-
-    if not username or not password:
-        return jsonify({"message": "Username and password are required"}), 400
-
-    existing_user = User.query.filter_by(username=username).first()
-    if existing_user:
-        return jsonify({"message": "Username already taken"}), 409
-
-    password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
-    new_user = User(username=username, password_hash=password_hash)
-
-    db.session.add(new_user)
-    db.session.commit()
-
-    return jsonify({
-        "message": "Registration successful",
-        "user_id": new_user.id,
-        "redirect_url": "/homepage"
-    }), 201'''
 
 
 @bp.route('/register', methods=['POST'])

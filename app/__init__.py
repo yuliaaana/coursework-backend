@@ -16,7 +16,8 @@ def create_app():
     bcrypt.init_app(app)
 
     with app.app_context():
-        from app.routes import auth, user,folders,createfolder,createdeck,deck,updateflashcard,adddecktofolder,editdeck,publicdecks,profile
+        from app.routes import auth,user,folders,createfolder,createdeck,deck,updateflashcard,adddecktofolder,editdeck,publicdecks,profile
+
         app.register_blueprint(auth.bp)
         app.register_blueprint(user.bp)
         app.register_blueprint(folders.bp)
@@ -28,8 +29,6 @@ def create_app():
         app.register_blueprint(editdeck.bp)
         app.register_blueprint(publicdecks.bp)
         app.register_blueprint(profile.bp)
-
-
 
         db.create_all()
 

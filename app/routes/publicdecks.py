@@ -14,7 +14,8 @@ def get_public_decks(user_id):
         {
             "id": deck.id,
             "name": deck.name,
-            "creator": deck.creator,
+            "creator": deck.user.username, 
+            "creator_id": deck.user.id, 
             "terms": deck.terms,
             "created_at": deck.created_at,
             "is_public": deck.is_public
